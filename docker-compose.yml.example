@@ -1,0 +1,27 @@
+services:
+  test:
+    build: 
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - Token=
+      - dsn=
+    depends_on:
+      - postgres
+    container_name: test_app
+    restart: always
+  postgres:
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - PGPORT=5432
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    restart: always
+
+volumes:
+  postgres-data:
